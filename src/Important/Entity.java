@@ -21,7 +21,6 @@ public class Entity {
     }
 
 
-
     public Entity(String name,int hp,int atk,int spd,int mn){
         this.name = name;
         baseStat = new int[StatType.values().length];
@@ -38,6 +37,7 @@ public class Entity {
 
     public Entity addAttack(Attack a){
         AttackQueue.add(a);
+        a.setOwner(this);
         return this;
     }
     public Attack getTopAttack(){

@@ -1,5 +1,8 @@
 package Important;
 
+import AttackModules.AttackModule;
+import Statistics.DamagePromise;
+
 import java.util.Comparator;
 
 public class Attack {
@@ -8,12 +11,13 @@ public class Attack {
     private int speed;
     private int currspeed;
     private Entity owner;
-
-    public Attack(int damage, String name, int speed) {
+    private AttackModule effect;
+    public Attack(int damage, String name, int speed,AttackModule mod) {
         this.damage = damage;
         this.name = name;
         this.speed = speed;
         currspeed = speed;
+        effect = mod;
     }
 
     /* Getters And Setters Here*/
@@ -23,7 +27,7 @@ public class Attack {
     }
 
     public Attack setOwner(Entity owner) {
-        if(this.owner != null) System.out.println(name + "WARNING: Attack already has an owner " + owner.getName());
+        //if(this.owner != null) System.out.println(name + "WARNING: Attack already has an owner " + owner.getName());
         this.owner = owner;
         return this;
     }
@@ -55,6 +59,10 @@ public class Attack {
         return getCurrspeed();
     }
 
+
+    public DamagePromise appply(Entity target){
+        return effect.apply(target);
+    }
 
     public static class SortBySpeed implements Comparator<Attack>{
         @Override
