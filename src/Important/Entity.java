@@ -4,8 +4,9 @@ package Important;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Set;
 
-public class Entity {
+public class Entity implements Cloneable{
 
     private String name;
     private int[] baseStat;
@@ -14,7 +15,6 @@ public class Entity {
 
     public static enum StatType{
         HP,
-        TempHp,
         ATK,
         SPD,
         MN
@@ -26,7 +26,6 @@ public class Entity {
         baseStat = new int[StatType.values().length];
         baseStat[StatType.ATK.ordinal()] = atk;
         baseStat[StatType.HP.ordinal()] = hp;
-        baseStat[StatType.TempHp.ordinal()] = hp;
         baseStat[StatType.SPD.ordinal()] = spd;
         baseStat[StatType.MN.ordinal()] = mn;
         bonusStat = new int[baseStat.length];
@@ -66,4 +65,42 @@ public class Entity {
         return this;
     }
     /*End of Getters and Setters*/
+    public boolean isAlive(){
+        return getStat(StatType.HP) > 0;
+    }
+    public DamagePromise applyDamagePromise(DamagePromise dp, Set<DamagePromise.StatType> CompareStat){
+        DamagePromise reflect = new DamagePromise();
+        Set<DamagePromise.StatType> keys = dp.getKeys();
+        for(DamagePromise.StatType st : keys){
+            if(!CompareStat.contains(st)) continue;
+            switch (st){
+                case DamageDealt:
+                    int finalDamage = dp.getValue(st);
+                    finalDamage = getStat(StatType.HP) - finalDamage;
+                    setBonusStat(StatType.HP,finalDamage);
+                    break;
+                case DamageHealed:
+                    int finalHeal = dp.getValue(st);
+                    finalHeal = getBaseStat(StatType.HP) + finalHeal;
+                    setBonusStat(StatType.HP,finalHeal);
+                    break;
+            }
+        }
+        //apply Thorns Passive or something;
+
+        return reflect;
+    }
+
+    public Entity clone() throws CloneNotSupportedException {
+        int HP = this.getBaseStat(StatType.HP);
+        int ATK = this.getBaseStat(StatType.ATK);
+        int SPD = this.getBaseStat(StatType.SPD);
+        int MN = this.getBaseStat(StatType.MN);
+        Entity res = new Entity(this.name,HP,ATK,SPD,MN);
+        Iterator<Attack> atk = AttackQueue.iterator();;
+        while(atk.hasNext()){
+            res.addAttack(atk.next().clone());
+        }
+        return res;
+    }
 }

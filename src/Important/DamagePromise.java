@@ -1,6 +1,7 @@
-package Statistics;
+package Important;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DamagePromise {
@@ -9,6 +10,14 @@ public class DamagePromise {
         DamageDealt,
         DamageHealed
     }
+
+    public static Set<StatType> postiveTypes = new HashSet<>(){{
+        add(StatType.DamageHealed);
+    }};
+
+    public static Set<StatType> negativeTypes = new HashSet<>(){{
+        add(StatType.DamageDealt);
+    }};
 
     private HashMap<StatType,Integer> promiseMap;
     public DamagePromise(){

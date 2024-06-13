@@ -1,23 +1,23 @@
 package Important;
 
 import AttackModules.AttackModule;
-import Statistics.DamagePromise;
 
 import java.util.Comparator;
 
-public class Attack {
+public class Attack implements Cloneable{
     private String name;
     private int damage;
     private int speed;
     private int currspeed;
     private Entity owner;
     private AttackModule effect;
-    public Attack(int damage, String name, int speed,AttackModule mod) {
+    public Attack(String name,int damage,int speed,AttackModule mod) {
         this.damage = damage;
         this.name = name;
         this.speed = speed;
         currspeed = speed;
         effect = mod;
+        effect.setAttackparent(this);
     }
 
     /* Getters And Setters Here*/
@@ -62,6 +62,15 @@ public class Attack {
 
     public DamagePromise appply(Entity target){
         return effect.apply(target);
+    }
+
+    @Override
+    protected Attack clone() throws CloneNotSupportedException {
+        Attack res = new Attack(this.name,
+                this.damage,
+                this.speed,
+                effect.clone());
+        return res;
     }
 
     public static class SortBySpeed implements Comparator<Attack>{

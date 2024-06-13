@@ -2,7 +2,7 @@ package AttackModules;
 
 import Important.Attack;
 import Important.Entity;
-import Statistics.DamagePromise;
+import Important.DamagePromise;
 
 public class SingleAttack extends AttackModule{
     @Override
