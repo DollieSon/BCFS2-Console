@@ -31,7 +31,7 @@ public class DamagePromise {
         return promiseMap.keySet();
     }
     public DamagePromise addInsertValue(StatType type, int some){
-        promiseMap.compute(type,(key,val)-> (val == null) ? 1 : val+ 1);
+        promiseMap.compute(type,(key,val)-> (val == null) ? some : val+ some);
         return this;
     }
 }

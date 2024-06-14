@@ -28,6 +28,7 @@ public class BattleScene {
             chosenAttack.getOwner().applyDamagePromise(dp,DamagePromise.postiveTypes);
             //
             chosenAttack.getOwner().applyDamagePromise(reflectDp,DamagePromise.negativeTypes);
+            chosenAttack.incrementSpeed();
             Enemy.addAttack(enemyAttack);
             Player.addAttack(playerAttack);
             if(!Enemy.isAlive() || !Player.isAlive()){

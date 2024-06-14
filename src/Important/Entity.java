@@ -76,12 +76,12 @@ public class Entity implements Cloneable{
             switch (st){
                 case DamageDealt:
                     int finalDamage = dp.getValue(st);
-                    finalDamage = getStat(StatType.HP) - finalDamage;
+                    finalDamage = getBonusStat(StatType.HP) - finalDamage;
                     setBonusStat(StatType.HP,finalDamage);
                     break;
                 case DamageHealed:
                     int finalHeal = dp.getValue(st);
-                    finalHeal = getBaseStat(StatType.HP) + finalHeal;
+                    finalHeal = getBonusStat(StatType.HP) + finalHeal;
                     setBonusStat(StatType.HP,finalHeal);
                     break;
             }
