@@ -1,8 +1,7 @@
-package Important;
+package Old.Important;
 
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -79,7 +78,7 @@ public class Entity implements Cloneable{
                     finalDamage = getBonusStat(StatType.HP) - finalDamage;
                     setBonusStat(StatType.HP,finalDamage);
                     break;
-                case DamageHealed:
+                case HealthHealed:
                     int finalHeal = dp.getValue(st);
                     finalHeal = getBonusStat(StatType.HP) + finalHeal;
                     setBonusStat(StatType.HP,finalHeal);

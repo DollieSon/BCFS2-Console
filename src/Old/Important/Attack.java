@@ -1,7 +1,8 @@
-package Important;
+package Old.Important;
 
-import AttackModules.AttackModule;
+import Old.AttackModules.AttackModule;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Attack implements Cloneable{
@@ -11,6 +12,8 @@ public class Attack implements Cloneable{
     private int currspeed;
     private Entity owner;
     private AttackModule effect;
+    private int ManaCost;
+    private ArrayList<Integer> MagicNumbers;
     public Attack(String name,int damage,int speed,AttackModule mod) {
         this.damage = damage;
         this.name = name;
@@ -18,6 +21,8 @@ public class Attack implements Cloneable{
         currspeed = speed;
         effect = mod;
         effect.setAttackparent(this);
+        ManaCost = 0;
+        MagicNumbers = new ArrayList<>();
     }
 
     /* Getters And Setters Here*/
@@ -53,6 +58,37 @@ public class Attack implements Cloneable{
         this.currspeed = currspeed;
         return this;
     }
+
+    public ArrayList<Integer> getMagicNumbersArr() {
+        return MagicNumbers;
+    }
+    public int getMagicNumber(int ind){
+        return ind >=MagicNumbers.size()? 0:MagicNumbers.get(ind);
+    }
+    public Attack addMagicNumber(int num){
+        MagicNumbers.add(num);
+        return this;
+    }
+
+    public Attack setMagicNumbers(ArrayList<Integer> magicNumbers) {
+        MagicNumbers = magicNumbers;
+        return this;
+    }
+
+    public int getManaCost() {
+        return ManaCost;
+    }
+
+    public Attack setManaCost(int manaCost) {
+        ManaCost = manaCost;
+        return this;
+    }
+
+    public boolean isCastable(){
+        return ManaCost <= getOwner().getStat(Entity.StatType.MN);
+    }
+
+
     public int incrementSpeed(){
         int cp = getCurrspeed() + getSpeed();
         setCurrspeed(cp);
@@ -70,6 +106,8 @@ public class Attack implements Cloneable{
                 this.damage,
                 this.speed,
                 effect.clone());
+        res.setManaCost(this.ManaCost);
+        res.setMagicNumbers(new ArrayList<>(MagicNumbers));
         return res;
     }
 

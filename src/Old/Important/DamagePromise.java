@@ -1,4 +1,4 @@
-package Important;
+package Old.Important;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,15 +8,19 @@ public class DamagePromise {
 
     public static enum StatType{
         DamageDealt,
-        DamageHealed
+        HealthHealed,
+        ManaReduce,
+        ManaGain
     }
 
     public static Set<StatType> postiveTypes = new HashSet<>(){{
-        add(StatType.DamageHealed);
+        add(StatType.HealthHealed);
+        add(StatType.ManaGain);
     }};
 
     public static Set<StatType> negativeTypes = new HashSet<>(){{
         add(StatType.DamageDealt);
+        add(StatType.ManaReduce);
     }};
 
     private HashMap<StatType,Integer> promiseMap;

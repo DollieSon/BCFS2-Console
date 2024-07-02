@@ -1,8 +1,8 @@
-package AttackModules;
+package Old.AttackModules;
 
-import Important.Attack;
-import Important.Entity;
-import Important.DamagePromise;
+import Old.Important.Attack;
+import Old.Important.Entity;
+import Old.Important.DamagePromise;
 
 public abstract class AttackModule implements Cloneable{
     private Attack Attackparent;
