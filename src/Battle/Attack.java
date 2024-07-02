@@ -28,6 +28,10 @@ public class Attack {
         currSpeed = speed;
         attackRatios = new ArrayList<>();
     }
+    public Attack addRatio(AttackRatio ar){
+        attackRatios.add(ar);
+        return this;
+    }
 
     public Attack setOwner(BattleEntity owner) {
         this.owner = owner;
