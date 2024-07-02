@@ -2,6 +2,7 @@ package Battle;
 
 
 import Battle.AttackEffects.Effect;
+import Battle.AttackEffects.On_Attack;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +12,7 @@ public class Attack {
     private String name;
     private AttackType type;
     private BattleEntity owner;
-    private Effect effect;
+    private On_Attack effect;
     private int speed;
     private int currSpeed;
     private ArrayList<AttackRatio> attackRatios;
@@ -36,6 +37,16 @@ public class Attack {
     public Attack setOwner(BattleEntity owner) {
         this.owner = owner;
         return this;
+    }
+
+    public Attack setEffect(On_Attack effect) {
+        this.effect = effect;
+        effect.setOwner(this);
+        return this;
+    }
+
+    public BattleEntity getOwner() {
+        return owner;
     }
 
     public Attack incementSpeed(){

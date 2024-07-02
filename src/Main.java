@@ -1,4 +1,6 @@
 import Battle.Attack;
+import Battle.AttackEffects.OA_IncreaseSelfStrength;
+import Battle.AttackEffects.On_Attack;
 import Battle.AttackRatio;
 import Battle.BattleEntity;
 import Battle.BattleReport;
@@ -8,8 +10,10 @@ public class Main {
         System.out.println("HI god");
         BattleEntity Be = getStan();
         BattleEntity Enim = getStan();
-        Be.setStat(BattleEntity.StatType.PhysAtk, 100);
+        Be.setStat(BattleEntity.StatType.PhysAtk, 10);
         Attack ka = getAtck();
+        On_Attack inc = new OA_IncreaseSelfStrength(10);
+        ka.setEffect(inc);
         Be.addAttack(ka);
         ka.Apply(Enim);
         System.out.println("Dead");
@@ -17,8 +21,8 @@ public class Main {
 
     public static BattleEntity getStan(){
         BattleEntity stan = new BattleEntity("Stan");
-        stan.setStat(BattleEntity.StatType.HP,100);
         stan.setStat(BattleEntity.StatType.MaxHP,100);
+        stan.setStat(BattleEntity.StatType.HP,100);
         return stan;
     }
 
@@ -27,4 +31,5 @@ public class Main {
         atk.addRatio(new AttackRatio(BattleEntity.StatType.PhysAtk, 0.1F));
         return atk;
     }
+
 }

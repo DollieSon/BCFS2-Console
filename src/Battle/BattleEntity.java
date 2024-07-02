@@ -1,6 +1,8 @@
 package Battle;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class BattleEntity {
@@ -12,7 +14,6 @@ public class BattleEntity {
         HP,
         MaxHP,
         Shield,
-        MaxShield,
         PhysAtk,
         MgcAtk,
         PhysDef,
@@ -28,11 +29,16 @@ public class BattleEntity {
         attackQueue = new PriorityQueue<>(new Attack.SortBycSpeed());
     }
 
-    public int getStat(StatType st){
+    public Integer getStat(StatType st){
         return stats[st.ordinal()];
     }
     public BattleEntity setStat(StatType st, int val){
+        if(st == StatType.HP && val > stats[StatType.MaxHP.ordinal()]) val = stats[StatType.MaxHP.ordinal()];
         stats[st.ordinal()] = val;
+        return this;
+    }
+    public BattleEntity addStat(StatType st, int val){
+        stats[st.ordinal()] += val;
         return this;
     }
 

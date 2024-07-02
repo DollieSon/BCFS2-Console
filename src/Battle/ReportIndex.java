@@ -6,4 +6,5 @@ public enum ReportIndex{
         MgcDamageDoneByEntity,
         MgcDamageTakenByEntity,
         MgcDamagePreventedByEntity,
+        PhysIncreased,
 }
