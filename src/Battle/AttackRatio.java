@@ -8,4 +8,7 @@ public class AttackRatio {
         ratio = r;
         type = t;
     }
+    public String toString(){
+        return type.toString() + ": " + String.format("%.2f ",ratio);
+    }
 }

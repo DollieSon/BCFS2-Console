@@ -50,5 +50,15 @@ public class BattleEntity {
     public Attack getTopAttack(){
         return attackQueue.remove();
     }
-
+    public String toString(){
+        StringBuilder sb = new StringBuilder(name);
+        sb.append(" ");
+        for(int x = 0 ;x < stats.length;x++){
+            sb.append(" ").append(StatType.values()[x].toString()).append(": ").append(stats[x]);
+        }
+        for(Attack atk : attackQueue){
+            sb.append("|").append(atk.toString()).append("|");
+        }
+        return sb.toString();
+    }
 }

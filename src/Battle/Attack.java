@@ -87,4 +87,12 @@ public class Attack {
         }
         return br;
     }
+    public String toString(){
+        StringBuilder sb = new StringBuilder(name);
+        sb.append(" ");
+        for(AttackRatio ar : attackRatios){
+            sb.append(ar.toString()+ " ");
+        }
+        return sb.toString();
+    }
 }
