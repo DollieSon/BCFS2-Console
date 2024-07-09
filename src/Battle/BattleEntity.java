@@ -1,6 +1,8 @@
 package Battle;
 
 
+import Battle.StatusEffects.StatusEffect;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -9,6 +11,7 @@ public class BattleEntity {
     private String name;
     private int[] stats;
     private PriorityQueue<Attack> attackQueue;
+    public ArrayList<StatusEffect> statusEffects;
 
     public static enum StatType{
         HP,
@@ -27,6 +30,7 @@ public class BattleEntity {
         this.name = name;
         stats = new int[StatType.values().length];
         attackQueue = new PriorityQueue<>(new Attack.SortBycSpeed());
+        statusEffects = new ArrayList<>();
     }
 
     public Integer getStat(StatType st){
@@ -40,6 +44,23 @@ public class BattleEntity {
     public BattleEntity addStat(StatType st, int val){
         stats[st.ordinal()] += val;
         return this;
+    }
+
+    public BattleEntity addStatusEffect(StatusEffect se){
+        statusEffects.add(se);
+        return this;
+    }
+    public BattleEntity removeStatusEffect(StatusEffect se){
+        statusEffects.remove(se);
+        return this;
+    }
+    /** returns all the activated effect **/
+    public int tickStatusEffects(){
+        int activated = 0;
+        for(StatusEffect se: statusEffects){
+            activated+=se.Tick();
+        }
+        return activated;
     }
 
     public BattleEntity addAttack(Attack atk){

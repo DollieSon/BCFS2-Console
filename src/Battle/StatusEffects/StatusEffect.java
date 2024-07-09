@@ -3,26 +3,28 @@ package Battle.StatusEffects;
 import Battle.BattleEntity;
 import Battle.BattleReport;
 
-public class StatusEffect {
-    ApplyEffect effect;
-    BattleEntity target;
-    BattleEntity source;
+public abstract class StatusEffect {
+    protected BattleEntity target;
+    protected BattleEntity source;
     int currTick;
     int maxTick;
 
-    public StatusEffect(ApplyEffect e, BattleEntity t, BattleEntity s, int max){
-        effect = e;
+    public StatusEffect(BattleEntity t, BattleEntity s, int max){
         target = t;
         source = s;
         currTick = 0;
         maxTick = max;
+        initApply();
     }
 
+    public abstract void activateStatus();
+    public abstract void initApply();
+    public abstract void tickEffect();
     public int Tick(){
         currTick+=1;
+        tickEffect();
         if(currTick >= maxTick){
-            effect.apply(target,source);
-            // TODO:: Also Remove the status effect or something
+            activateStatus();
             return 1;
         }
         return 0;

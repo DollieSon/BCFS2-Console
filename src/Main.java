@@ -3,7 +3,8 @@ import Battle.AttackEffects.OA_IncreaseSelfStrength;
 import Battle.AttackEffects.On_Attack;
 import Battle.AttackRatio;
 import Battle.BattleEntity;
-import Battle.BattleReport;
+import Battle.StatusEffects.StatusEffect;
+import Battle.StatusEffects.StatusEffectConstructor;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +17,8 @@ public class Main {
         ka.setEffect(inc);
         Be.addAttack(ka);
         ka.Apply(Enim);
+        StatusEffect sm = StatusEffectConstructor.getStatusEffect(0,Be,Be);
+
         System.out.println("Dead");
     }
 
