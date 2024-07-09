@@ -63,6 +63,11 @@ public class BattleEntity {
         return activated;
     }
 
+    public BattleEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public BattleEntity addAttack(Attack atk){
         atk.setOwner(this);
         attackQueue.add(atk);
@@ -70,6 +75,9 @@ public class BattleEntity {
     }
     public Attack getTopAttack(){
         return attackQueue.remove();
+    }
+    public String getName(){
+        return name;
     }
     public String toString(){
         StringBuilder sb = new StringBuilder(name);
@@ -81,5 +89,8 @@ public class BattleEntity {
             sb.append("|").append(atk.toString()).append("|");
         }
         return sb.toString();
+    }
+    public boolean isAlive(){
+        return getStat(StatType.HP) > 0;
     }
 }

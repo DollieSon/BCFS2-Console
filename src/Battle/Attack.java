@@ -53,6 +53,9 @@ public class Attack {
         currSpeed+= speed;
         return this;
     }
+    public int getCurrSpeed(){
+        return currSpeed;
+    }
 
     public static class SortBycSpeed implements Comparator<Attack>{
         @Override
@@ -63,6 +66,7 @@ public class Attack {
 
     public BattleReport Apply(BattleEntity target){
         // Damage Calc dmg-(def - (pen*2))
+        System.out.println(owner.getName() + " Attacks " + target.getName() + " Using " + name);
         BattleReport br = new BattleReport();
         int def;
         int pen;
@@ -75,7 +79,7 @@ public class Attack {
             pen = owner.getStat(BattleEntity.StatType.MgcDefPen);
         }
         for(AttackRatio ar : attackRatios){
-            damage += (int)(owner.getStat(ar.type) * ar.ratio);
+            damage += (int)Math.ceil((owner.getStat(ar.type) * ar.ratio));
         }
         def -= pen*2;
         if(def<0) def = 0;
@@ -89,6 +93,8 @@ public class Attack {
     }
     public String toString(){
         StringBuilder sb = new StringBuilder(name);
+        sb.append(" cP:");
+        sb.append(currSpeed);
         sb.append(" ");
         for(AttackRatio ar : attackRatios){
             sb.append(ar.toString()+ " ");
